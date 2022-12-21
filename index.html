@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta chrset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>EasyDocs test</title>
+        <script>
+            window.paradocsApiUrl = "https://demo.easydocs.ru/api/";
+        </script>
+        <script src="https://cdn.easydocs.ru/widget-sb/prdx-wdgt-sb.js"></script>
+        <script>
+            const WIDGET_ID = "a9c8c02c-19f8-4c4c-96b7-64100a127d89";
+            const DOCUMENT = { content: "SGVsbG8K", name: "document", ext: "txt" };
+            const SIGNER = {};
+
+            const onButtonClick = async () => {
+                try {
+                    const res = await window.paradocsWidget.sign(DOCUMENT, SIGNER);
+                } catch (error) {
+                    console.log("error", error);
+                }
+
+                console.log("res", res);
+            };
+
+            const onload = async () => {
+                await paradocsWidget.init(WIDGET_ID);
+
+                const button = document.getElementById("button");
+                button.addEventListener("click", onButtonClick);
+                button.disabled = false;
+            };
+
+            window.addEventListener("load", onload);
+        </script>
+    </head>
+    <body>
+        <h1>EasyDocs test</h1>
+        <p>
+            <button id="button" disabled="disabled">Подписать документ</button>
+        </p>
+    </body>
+</html>
