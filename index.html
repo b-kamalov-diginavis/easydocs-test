@@ -21,11 +21,11 @@
 
                 try {
                     const res = await window.paradocsWidget.sign(document, SIGNER);
+
+                    console.log("res", res);
                 } catch (error) {
                     console.log("error", error);
                 }
-
-                console.log("res", res);
             };
 
             const onload = async () => {
