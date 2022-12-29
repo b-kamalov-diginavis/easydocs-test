@@ -45,20 +45,42 @@
             .IsId:not(:checked) ~ .DocumentId {
                 display: none;
             }
+
+            main {
+                max-width: 300px;
+                background-color: whitesmoke;
+                padding: 16px;
+            }
+            h1 {
+                margin: 0;
+            }
+            input[type="text"],
+            textarea,
+            button {
+                width: 100%;
+                box-sizing: border-box;
+            }
+            textarea {
+                resize: vertical;
+                min-height: 50px;
+            }
         </style>
     </head>
     <body>
-        <h1>EasyDocs test</h1>
-        <form id="form">
-            <input type="checkbox" name="isId" id="isId" class="IsId" />
-            <label for="isId">указать id документа</label>
+        <main>
+            <h1>EasyDocs test</h1>
             <br />
-            <br />
-            <label class="DocumentId">id документа<br /><input type="text" name="id" /></label>
-            <label class="DocumentText">текст документа<br /><textarea name="text">Hello</textarea></label>
-            <br />
-            <br />
-            <button id="button" type="submit" disabled="disabled">Подписать документ</button>
-        </form>
+            <form id="form">
+                <input type="checkbox" name="isId" id="isId" class="IsId" />
+                <label for="isId">указать id документа</label>
+                <br />
+                <br />
+                <label class="DocumentId">id документа<br /><input type="text" name="id" /></label>
+                <label class="DocumentText">текст документа<br /><textarea name="text">Hello</textarea></label>
+                <br />
+                <br />
+                <button id="button" type="submit" disabled="disabled">Подписать документ</button>
+            </form>
+        </main>
     </body>
 </html>
