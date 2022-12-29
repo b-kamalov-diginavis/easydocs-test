@@ -10,12 +10,17 @@
         <script src="https://cdn.easydocs.ru/widget-sb/prdx-wdgt-sb.js"></script>
         <script>
             const WIDGET_ID = "a9c8c02c-19f8-4c4c-96b7-64100a127d89";
-            const DOCUMENT = { content: "SGVsbG8K", name: "document", ext: "txt" };
             const SIGNER = {};
 
-            const onButtonClick = async () => {
+            const onFormSubmit = async (event) => {
+                event.preventDefault();
+
+                const { isId, id, text } = Object.fromEntries(new FormData(event.target));
+
+                const document = isId ? { id } : { content: btoa(text), name: "document", ext: "txt" };
+
                 try {
-                    const res = await window.paradocsWidget.sign(DOCUMENT, SIGNER);
+                    const res = await window.paradocsWidget.sign(document, SIGNER);
                 } catch (error) {
                     console.log("error", error);
                 }
@@ -27,17 +32,33 @@
                 await paradocsWidget.init(WIDGET_ID);
 
                 const button = document.getElementById("button");
-                button.addEventListener("click", onButtonClick);
+                const form = document.getElementById("form");
+
+                form.addEventListener("submit", onFormSubmit);
                 button.disabled = false;
             };
 
             window.addEventListener("load", onload);
         </script>
+        <style>
+            .IsId:checked ~ .DocumentText,
+            .IsId:not(:checked) ~ .DocumentId {
+                display: none;
+            }
+        </style>
     </head>
     <body>
         <h1>EasyDocs test</h1>
-        <p>
-            <button id="button" disabled="disabled">Подписать документ</button>
-        </p>
+        <form id="form">
+            <input type="checkbox" name="isId" id="isId" class="IsId" />
+            <label for="isId">указать id документа</label>
+            <br />
+            <br />
+            <label class="DocumentId">id документа<br /><input type="text" name="id" /></label>
+            <label class="DocumentText">текст документа<br /><textarea name="text">Hello</textarea></label>
+            <br />
+            <br />
+            <button id="button" type="submit" disabled="disabled">Подписать документ</button>
+        </form>
     </body>
 </html>
